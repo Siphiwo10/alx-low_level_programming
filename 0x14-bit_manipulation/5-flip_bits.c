@@ -1,19 +1,25 @@
 #include "main.h"
 
 /**
- * set_bit - sets the value of a bit to 1 at a given index.
- * @n: number to set
- * @index: index at which to set bit
+ * flip_bits - counts the number of bits to change
+ * to get from one number to another
+ * @n: first number
+ * @m: second number
  *
- * Return: 1 if it worked, or -1 if an error occurred
+ * Return: number of bits to change
  */
-int set_bit(unsigned long int *n, unsigned int index)
+unsigned int flip_bits(unsigned long int n, unsigned long int m)
 {
-	unsigned long int set;
+	int i, count = 0;
+	unsigned long int current;
+	unsigned long int exclusive = n ^ m;
 
-	if (index > (sizeof(unsigned long int) * 8 - 1))
-		return (-1);
-	set = 1 << index;
-	*n = *n | set;
-	return (1);
+	for (i = 63; i >= 0; i--)
+	{
+		current = exclusive >> i;
+		if (current & 1)
+			count++;
+	}
+
+	return (count);
 }
